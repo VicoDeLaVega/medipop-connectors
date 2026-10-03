@@ -1,18 +1,20 @@
 {
   "formatVersion": 1,
   "id": "example-prescription",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "title": "Prescription",
   "locales": [
     "en_US",
-    "fr_FR"
+    "fr_FR",
+    "es_ES"
   ],
   "fields": [
     {
       "id": "patient",
       "label": {
         "en": "Patient",
-        "fr": "Patient"
+        "fr": "Patient",
+        "es": "Paciente"
       },
       "type": "group",
       "fields": [
@@ -20,7 +22,8 @@
           "id": "firstName",
           "label": {
             "en": "First name",
-            "fr": "Prénom"
+            "fr": "Prénom",
+            "es": "Nombre"
           },
           "type": "text",
           "required": false
@@ -29,7 +32,8 @@
           "id": "lastName",
           "label": {
             "en": "Last name",
-            "fr": "Nom"
+            "fr": "Nom",
+            "es": "Apellido"
           },
           "type": "text",
           "required": false
@@ -38,7 +42,8 @@
           "id": "patientId",
           "label": {
             "en": "Patient ID",
-            "fr": "N° patient"
+            "fr": "N° patient",
+            "es": "N.º de paciente"
           },
           "type": "text",
           "required": false
@@ -49,7 +54,8 @@
       "id": "doctor",
       "label": {
         "en": "Doctor",
-        "fr": "Médecin"
+        "fr": "Médecin",
+        "es": "Médico"
       },
       "type": "group",
       "fields": [
@@ -57,7 +63,8 @@
           "id": "firstName",
           "label": {
             "en": "First name",
-            "fr": "Prénom"
+            "fr": "Prénom",
+            "es": "Nombre"
           },
           "type": "text",
           "required": false
@@ -66,7 +73,8 @@
           "id": "lastName",
           "label": {
             "en": "Last name",
-            "fr": "Nom"
+            "fr": "Nom",
+            "es": "Apellido"
           },
           "type": "text",
           "required": false
@@ -75,7 +83,8 @@
           "id": "doctorId",
           "label": {
             "en": "Doctor ID / license",
-            "fr": "N° médecin / RPPS"
+            "fr": "N° médecin / RPPS",
+            "es": "N.º de médico / licencia"
           },
           "type": "text",
           "required": false
@@ -86,7 +95,8 @@
       "id": "medications",
       "label": {
         "en": "Medications",
-        "fr": "Médicaments"
+        "fr": "Médicaments",
+        "es": "Medicamentos"
       },
       "type": "list",
       "fields": [
@@ -94,7 +104,8 @@
           "id": "name",
           "label": {
             "en": "Name",
-            "fr": "Nom"
+            "fr": "Nom",
+            "es": "Nombre"
           },
           "type": "text",
           "required": true
@@ -103,7 +114,8 @@
           "id": "medicationId",
           "label": {
             "en": "Medication ID",
-            "fr": "Code médicament"
+            "fr": "Code médicament",
+            "es": "Código del medicamento"
           },
           "type": "text",
           "required": false
@@ -112,7 +124,8 @@
           "id": "strength",
           "label": {
             "en": "Strength",
-            "fr": "Dosage"
+            "fr": "Dosage",
+            "es": "Dosis"
           },
           "type": "text",
           "required": false
@@ -121,7 +134,8 @@
           "id": "form",
           "label": {
             "en": "Form",
-            "fr": "Forme"
+            "fr": "Forme",
+            "es": "Forma"
           },
           "type": "text",
           "required": false
@@ -130,7 +144,8 @@
           "id": "posology",
           "label": {
             "en": "Posology",
-            "fr": "Posologie"
+            "fr": "Posologie",
+            "es": "Posología"
           },
           "type": "text",
           "required": false
@@ -139,7 +154,8 @@
           "id": "duration",
           "label": {
             "en": "Duration",
-            "fr": "Durée"
+            "fr": "Durée",
+            "es": "Duración"
           },
           "type": "text",
           "required": false
@@ -148,7 +164,8 @@
           "id": "quantity",
           "label": {
             "en": "Quantity",
-            "fr": "Quantité"
+            "fr": "Quantité",
+            "es": "Cantidad"
           },
           "type": "text",
           "required": false
@@ -157,7 +174,8 @@
           "id": "notes",
           "label": {
             "en": "Notes",
-            "fr": "Notes"
+            "fr": "Notes",
+            "es": "Notas"
           },
           "type": "text",
           "required": false
