@@ -309,7 +309,7 @@ label input { display: block; width: 100%; margin: 8px 0 16px; box-sizing: borde
 button { cursor: pointer; }
 
 /* Configuration page */
-.config-form fieldset { border: 1px solid #cbd5e1; border-radius: 12px; padding: 16px; margin: 0 0 16px; }
+.config-form fieldset { min-width: 0; border: 1px solid #cbd5e1; border-radius: 12px; padding: 16px; margin: 0 0 16px; }
 .config-form legend { font-weight: 600; padding: 0 6px; }
 .config-form label.inline { display: inline-flex; align-items: center; gap: 6px; margin: 0 16px 8px 0; }
 .config-form label.inline input { display: inline; width: auto; margin: 0; }
