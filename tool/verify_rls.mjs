@@ -10,6 +10,7 @@ grant usage on schema public, auth to anon, authenticated;
 grant execute on function auth.uid() to anon, authenticated;`);
 await db.exec(`create table public.prescriptions(id integer primary key); insert into public.prescriptions values (1); alter table public.prescriptions enable row level security; grant select, insert on public.prescriptions to anon, authenticated; create policy \"prototype public read prescriptions\" on public.prescriptions for select to anon, authenticated using(true);`);
 await db.exec(await readFile(new URL('../supabase/migrations/202609280001_organization_workspaces.sql', import.meta.url), 'utf8'));
+await db.exec(await readFile(new URL('../supabase/migrations/202610030001_package_publishing.sql', import.meta.url), 'utf8'));
 const a = '10000000-0000-4000-8000-000000000001', b = '10000000-0000-4000-8000-000000000002';
 const doctor = '20000000-0000-4000-8000-000000000001', admin = '20000000-0000-4000-8000-000000000002', other = '20000000-0000-4000-8000-000000000003';
 await db.exec(`insert into auth.users values ('${doctor}'), ('${admin}'), ('${other}');
@@ -44,6 +45,31 @@ await assert.rejects(() => db.query('select * from admin_consultations($1)', [a]
 await assert.rejects(() => submit({...record, organization_id:b, created_by_user_id:other}));
 await asUser(admin);
 assert.equal((await db.query('select * from admin_consultations($1)', [a])).rows.length, 1);
+// Configuration publishing
+const pkg = { formatVersion: 1, id: 'example-prescription', version: '1.1.0', title: 'Prescription',
+  prompt: 'Fields {{SCHEMA}} Dictation {{TRANSCRIPT}}', fields: [{ id: 'note', label: 'Note', type: 'text' }],
+  model: { sha256: 'b'.repeat(64), url: 'https://example.org/model.gguf' } };
+const publish = (org, p) => db.query('select public.publish_package($1, $2::jsonb)', [org, JSON.stringify(p)]);
+await publish(a, pkg);
+assert.equal((await db.query('select package->>\'version\' as v from organizations where id = $1', [a])).rows[0].v, '1.1.0');
+assert.equal((await db.query('select * from organization_packages')).rows.length, 1);
+await assert.rejects(() => publish(a, pkg), 'Same version cannot be republished');
+for (const bad of [{ ...pkg, version: '1.2.0', formatVersion: 2 }, { ...pkg, version: '1.2.0', prompt: 'no placeholders' },
+  { ...pkg, version: '1.2.0', fields: [] }, { ...pkg, version: '1.2.0', model: { sha256: 'short' } },
+  { ...pkg, version: '1.2.0', model: { sha256: 'b'.repeat(64), url: 'http://insecure' } }]) {
+  await assert.rejects(() => publish(a, bad));
+}
+await assert.rejects(() => publish(b, { ...pkg, version: '9.0.0' }), 'Admin of A cannot publish for B');
+await assert.rejects(() => db.exec("update organizations set package = '{}'::jsonb"));
+await asUser(doctor);
+await assert.rejects(() => publish(a, { ...pkg, version: '2.0.0' }), 'Doctors cannot publish');
+assert.equal((await db.query('select * from organization_packages')).rows.length, 0);
+assert.equal((await db.query('select package->>\'version\' as v from organizations')).rows[0].v, '1.1.0');
+await asUser(other);
+assert.equal((await db.query('select * from organization_packages')).rows.length, 0);
+await asUser(null, 'anon');
+await assert.rejects(() => publish(a, { ...pkg, version: '3.0.0' }));
+await asUser(admin);
 await db.exec('reset role');
 await db.query('delete from organization_members where user_id = $1', [doctor]);
 await asUser(doctor);
@@ -52,4 +78,4 @@ await assert.rejects(() => submit(record));
 await db.exec('reset role');
 assert.equal((await db.query('select * from prescriptions')).rows.length, 1);
 await db.close();
-console.log('PASS: anonymous access, cross-org isolation, role escalation, direct writes, immutable retry, admin export and revocation.');
+console.log('PASS: anonymous access, cross-org isolation, role escalation, direct writes, immutable retry, admin export, configuration publishing and revocation.');

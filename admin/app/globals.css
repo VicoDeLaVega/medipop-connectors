@@ -307,3 +307,18 @@ a {
 input, select, button { font: inherit; padding: 10px 12px; border: 1px solid #94a3b8; border-radius: 8px; }
 label input { display: block; width: 100%; margin: 8px 0 16px; box-sizing: border-box; }
 button { cursor: pointer; }
+
+/* Configuration page */
+.config-form fieldset { border: 1px solid #cbd5e1; border-radius: 12px; padding: 16px; margin: 0 0 16px; }
+.config-form legend { font-weight: 600; padding: 0 6px; }
+.config-form label.inline { display: inline-flex; align-items: center; gap: 6px; margin: 0 16px 8px 0; }
+.config-form label.inline input { display: inline; width: auto; margin: 0; }
+.config-form input[type="color"] { width: 64px; height: 40px; padding: 2px; }
+.config-form textarea { display: block; width: 100%; box-sizing: border-box; margin: 8px 0 16px; font: inherit; padding: 10px 12px; border: 1px solid #94a3b8; border-radius: 8px; }
+.config-form select { display: block; margin: 8px 0 16px; }
+.config-form details { margin: 8px 0; }
+.field-tree { margin: 4px 0 12px; padding-left: 20px; }
+.notice { padding: 10px 14px; border-radius: 8px; }
+.notice.ok { background: #dcfce7; color: #14532d; }
+.notice.error { background: #fee2e2; color: #7f1d1d; }
+button.primary { background: #1e3a8a; color: #fff; border-color: #1e3a8a; }

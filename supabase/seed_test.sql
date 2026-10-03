@@ -11,10 +11,10 @@ with orgs as (
   returning id, name
 ), members(email, org_name, role) as (
   values
-    ('doctor-a@example.test', 'Test Org A', 'doctor'),
-    ('admin-a@example.test',  'Test Org A', 'admin'),
-    ('doctor-b@example.test', 'Test Org B', 'doctor'),
-    ('admin-b@example.test',  'Test Org B', 'admin')
+    ('vceitelis+doc1@gmail.com', 'Test Org A', 'doctor'),
+    ('vceitelis+admin1@gmail.com',  'Test Org A', 'admin'),
+    ('vceitelis+doc2@gmail.com', 'Test Org B', 'doctor'),
+    ('vceitelis+admin2@gmail.com',  'Test Org B', 'admin')
 )
 insert into public.organization_members (organization_id, user_id, role)
 select o.id, u.id, m.role

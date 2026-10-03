@@ -5,7 +5,7 @@ export async function AdminShell({ children }) {
   const { organizationId, memberships } = await requireAdmin();
   return <main className="shell"><header className="topbar">
     <div className="brand"><span className="eyebrow">Medipop</span><h1 className="title">Consultations</h1></div>
-    <nav className="nav"><Link href="/">Overview</Link><Link href="/entries">All entries</Link><Link href="/latest">Latest</Link>
+    <nav className="nav"><Link href="/">Overview</Link><Link href="/entries">All entries</Link><Link href="/latest">Latest</Link><Link href="/config">Configuration</Link>
       <a href="/export">Export JSON (up to 1,000)</a></nav>
     <form action={logout}><button>Sign out</button></form>
   </header>

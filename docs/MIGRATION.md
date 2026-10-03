@@ -17,6 +17,10 @@ Aucune commande de ce document n'a été exécutée contre un projet Supabase di
 5. Vérifier qu'un médecin ne peut pas utiliser le dashboard/export, et qu'un administrateur ne voit jamais une autre organisation non autorisée.
 6. Simuler une réponse de sync perdue puis réessayer: le même UUID doit produire un seul enregistrement. Une tentative de changer un enregistrement déjà validé avec le même UUID doit échouer.
 
+## Publication de la configuration
+
+Appliquer ensuite `supabase/migrations/202610030001_package_publishing.sql` (une seule fois). Elle ajoute l'historique `organization_packages` et la fonction `publish_package`, réservée aux administrateurs de l'organisation. La page **Configuration** du dashboard l'utilise : nom, couleur et logo, langues de dictée, modèle IA, champs du formulaire. Chaque publication crée une version ; les apps l'appliquent à leur prochain lancement.
+
 ## Historique local
 
 L'app utilise `medipop_v3_<empreinte-compte-organisation>`. Les bases du tout premier prototype (`medipop.sqlite`, `sync_queue`) ne sont plus lues ni importées : elles ne contenaient que des données de test. Le code d'import reste disponible dans l'historique git si nécessaire.
